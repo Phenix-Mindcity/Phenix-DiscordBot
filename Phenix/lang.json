@@ -1,0 +1,22 @@
+{
+  "emotes": {
+    "success": "<:ok:1339774337149964369>",
+    "error": "<:error:1339774335841468476>",
+    "loading": "<a:loading:1345279213137035305>",
+    "logo": "<:Phenix:1365815338549121126>"
+  },
+  "error": {
+    "unknow": " Une erreur inconnue est survenue, merci de faire un ticket et transmettre ce code erreur : ",
+    "noPerm": " Erreur : Vous n'avez pas la permission de faire cela",
+    "mention": " Vous devez mentionner un membre"
+  },
+  "messages" : {
+
+  },
+  "commands": {
+    "resetCmds": {
+      "success": "Les commandes ont été réinitialisés !"
+    }
+  },
+  "send": "Le message a été envoyé"
+}
