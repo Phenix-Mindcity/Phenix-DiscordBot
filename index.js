@@ -2,7 +2,7 @@ const fs = require('fs');
 const mysql = require('mysql');
 
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildModeration] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
 
 const myArgs = process.argv.slice(2);
 
@@ -12,11 +12,9 @@ global.Phenix = require('./Phenix');
 if (myArgs.length > 0 && myArgs[0] === "dev") {
     global.Phenix = require('./Phenix/dev');
     Phenix.dev = true
-    Phenix.attachments = __dirname + "/attachments_dev"
     console.log("Launching in " + "\x1b[32mdeveloper\x1b[0m" + " mode\n")
 } else {
     Phenix.dev = false
-    Phenix.attachments = __dirname + "/../Dashboard/storage/app/private/attachments"
     console.log("Launching in " + "\x1b[34mproduction\x1b[0m" + " mode\n")
 }
 
@@ -41,11 +39,6 @@ db.connect(function(err) {
 
 Phenix.sql = db;
 Phenix.client = client;
-Phenix.commands = new Collection()
-Phenix.channels = {}
-Phenix.bulkDeleted = []
-Phenix.season = undefined
-Phenix.assets = __dirname + "/assets"
 
 // Enregistrement des events
 fs.readdirSync('events').forEach(file => {
