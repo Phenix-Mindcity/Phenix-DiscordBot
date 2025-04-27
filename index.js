@@ -1,7 +1,5 @@
 const fs = require('fs');
 const mysql = require('mysql');
-const cron = require('node-cron');
-const path = require("path");
 
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildModeration] });
