@@ -1,10 +1,6 @@
 const express = require('express');
 const app = express()
 
-app.get('/test', async (req, res) => {
-    res.send("Test OK")
-})
-
 app.get('/updateMember', async (req, res) => {
     res.send("En cours")
 
