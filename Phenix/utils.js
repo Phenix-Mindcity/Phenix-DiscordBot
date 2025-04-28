@@ -5,6 +5,7 @@ module.exports = {
     async updateMember (DiscordID) {
         const member = await Phenix.guild.members.cache.get(DiscordID)
         const User = (await Phenix.db.getUser(DiscordID))[0];
+        if (User === undefined) return;
 
         const memberRole = Phenix.guild.roles.cache.get(Phenix.config.roles.member);
 
@@ -47,7 +48,6 @@ module.exports = {
 
         Pilotes.forEach(pilote => {
             roles[pilote.course] = true
-
         })
 
         for (const [course, isPilote] of Object.entries(roles)) {
