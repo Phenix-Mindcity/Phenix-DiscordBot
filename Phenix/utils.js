@@ -1,3 +1,6 @@
+const fs = require('fs');
+const { REST, Routes } = require('discord.js');
+
 module.exports = {
     async updateMember (DiscordID) {
         const member = await Phenix.guild.members.cache.get(DiscordID)
@@ -62,5 +65,47 @@ module.exports = {
                 console.log(err)
             }
         }
+    },
+    async registerCommands() {
+        const commandsList = []
+        Phenix.commands = []
+
+        fs.readdirSync(__basedir + '/interactions').forEach(typeDir => {
+            fs.readdirSync(__basedir + '/interactions/' + typeDir).forEach(dir => {
+                fs.readdirSync( __basedir + `/interactions/${typeDir}/${dir}`).filter(file => file.endsWith('.js')).forEach(file => {
+                    const command = require(__basedir + `/interactions/${typeDir}/${dir}/${file}`);
+
+                    if ('data' in command) {
+                        let commandData = command.data.toJSON()
+                        console.log(`Ajout de l'interaction de type ${typeDir}, du nom de ${commandData.name} présente dans le dossier ${dir}`)
+
+                        Phenix.commands[commandData.name] = {"dir": dir, "cmd": command}
+
+                        if ('execute' in command) {
+                            commandsList.push(commandData);
+                        }
+                    } else {
+                        console.log(`La commande de type ${typeDir} ${dir}/${file} n'a pas la propriété data.`)
+                    }
+                });
+            });
+        });
+
+        const rest = new REST().setToken(Phenix.pass.DiscordToken);
+
+        await (async () => {
+            try {
+                console.log(`Lancement de la réinitialisation de ${commandsList.length} commandes.`)
+
+                const data = await rest.put(
+                    Routes.applicationGuildCommands(Phenix.config.clientID, Phenix.config.guildID),
+                    {body: commandsList},
+                );
+
+                console.log(`Réinitialisation de ${data.length} commandes effectués avec succès`)
+            } catch (err) {
+                console.log(err)
+            }
+        })();
     },
 }

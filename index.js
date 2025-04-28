@@ -39,6 +39,7 @@ db.connect(function(err) {
 
 Phenix.sql = db;
 Phenix.client = client;
+Phenix.commands = new Collection()
 
 // Enregistrement des events
 fs.readdirSync('events').forEach(file => {
