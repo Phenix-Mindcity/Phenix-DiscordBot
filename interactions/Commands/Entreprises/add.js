@@ -1,10 +1,9 @@
-const { PermissionFlagsBits, SlashCommandBuilder} = require('discord.js');
+const { SlashCommandBuilder} = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('ajouter')
         .setDescription('Ajouter un membre de votre entreprise')
-        .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
         .addMentionableOption(option =>
             option.setName('qui')
                 .setDescription('Personne à ajouter')
