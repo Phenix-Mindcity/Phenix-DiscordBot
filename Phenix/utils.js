@@ -8,31 +8,26 @@ module.exports = {
         if (User === undefined) return;
 
         const memberRole = Phenix.guild.roles.cache.get(Phenix.config.roles.member);
+        const adminRole = Phenix.guild.roles.cache.get(Phenix.config.roles.admin);
 
-        if (User.rank >= 5) {
-            const adminRole = Phenix.guild.roles.cache.get(Phenix.config.roles.admin);
-
-            console.log(DiscordID + " - Ajout du rôle de membre")
-            try {
-                member.roles.add(memberRole)
-            } catch (err) {
-                console.log(err)
-            }
-
-            if (User.rank >= 10) {
-                console.log(DiscordID + " - Ajout du rôle d'admin")
-                member.roles.add(adminRole)
-            } else {
-                if (member.roles.cache.has(Phenix.config.roles.admin)) {
-                    console.log(DiscordID + " - Supression du rôle d'admin")
-                    member.roles.remove(adminRole)
-                }
+        if (User.rank < 10) {
+            if (member.roles.cache.has(Phenix.config.roles.admin)) {
+                console.log(DiscordID + " - Supression du rôle d'admin")
+                member.roles.remove(adminRole)
             }
         } else {
+            console.log(DiscordID + " - Ajout du rôle d'admin")
+            member.roles.add(adminRole)
+        }
+
+        if (User.rank < 5) {
             if (member.roles.cache.has(Phenix.config.roles.member)) {
                 console.log(DiscordID + " - Supression du rôle de membre")
                 member.roles.remove(memberRole)
             }
+        } else {
+            console.log(DiscordID + " - Ajout du rôle de membre")
+            member.roles.add(memberRole)
         }
     },
     async updatePilote(DiscordID) {
