@@ -11,9 +11,10 @@ module.exports = {
             console.log(e)
         }
 
-        const User = (await Phenix.db.getUser(member.user.id))[0];
+        const User = (await Phenix.db.getUser(member.user.id));
+        if (!User) return;
 
-        if (User && User.rank && User.fullname !== "") member.setNickname(User.fullname)
+        if (User[0] && User[0].rank && User[0].fullname !== "") member.setNickname(User.fullname)
 
         await Phenix.utils.updateMember(member.user.id)
         await Phenix.utils.updatePilote(member.user.id)
