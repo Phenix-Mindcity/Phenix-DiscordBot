@@ -3,7 +3,7 @@ const { PermissionFlagsBits, SlashCommandBuilder} = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('resetcmds')
-        .setDescription('Réinitialiser les commandes.')
+        .setDescription('Réinitialiser les commandes (Dev Only).')
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
         if (interaction.guild.id !== Phenix.config.guildID) return;
