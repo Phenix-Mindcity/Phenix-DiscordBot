@@ -30,7 +30,7 @@ module.exports = {
             })
                 .then(webhook => {
                     webhook.send({
-                        content: interaction.options._hoistedOptions[1].value,
+                        content: interaction.options._hoistedOptions[1].value + "\n-# Ce personnage est purement RP, et n'éxiste pas en vrai.",
                     });
                 })
                 .catch(console.error);
